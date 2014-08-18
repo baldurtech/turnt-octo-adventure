@@ -7,11 +7,16 @@ import com.baldurtech.turnt.octo.adventure.domain.Contact;
 
 public class ContactManagerImplTest extends MiniatureSpiceTestCase {
 
+    ContactRepositoryMock contactRepository;
+    ContactManagerImpl contactManager;
+
+    public void setup() {
+        contactRepository = new ContactRepositoryMock();
+
+        contactManager = new ContactManagerImpl(contactRepository);
+    }
+
     public void test_getById_当id对应的Contact存在就直接返回() {
-        ContactRepositoryMock contactRepository = new ContactRepositoryMock();
-
-        ContactManagerImpl contactManager = new ContactManagerImpl(contactRepository);
-
         Contact contact = new Contact();
         contact.setId(1L);
 
@@ -24,10 +29,6 @@ public class ContactManagerImplTest extends MiniatureSpiceTestCase {
 
     public void test_getById_当id对应的Contact不存在就返回null() {
         Long idContactNotExist = 1L;
-
-        ContactRepositoryMock contactRepository = new ContactRepositoryMock();
-
-        ContactManagerImpl contactManager = new ContactManagerImpl(contactRepository);
 
         contactRepository.getByIdShouldReturn = null;
 
