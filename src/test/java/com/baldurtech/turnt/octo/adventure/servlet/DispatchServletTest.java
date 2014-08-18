@@ -1,6 +1,9 @@
 package com.baldurtech.turnt.octo.adventure.servlet;
 
 import com.baldurtech.unit.MiniatureSpiceTestCase;
+import static org.mockito.Mockito.*;
+
+import javax.servlet.http.HttpServletRequest;
 
 public class DispatchServletTest extends MiniatureSpiceTestCase {
 
@@ -29,4 +32,14 @@ public class DispatchServletTest extends MiniatureSpiceTestCase {
         assertEquals("/WEB-INF/jsp/contact/show.jsp"
                      , dispatchServlet.getViewPage("/contact/show.do"));
     }
+
+    public void test_getUri_返回以应用路径为根路径的uri() {
+        HttpServletRequest request = mock(HttpServletRequest.class);
+
+        when(request.getRequestURI()).thenReturn("/contact/contact/list.do");
+        when(request.getContextPath()).thenReturn("/contact");
+
+        assertEquals("/contact/list.do", dispatchServlet.getUri(request));
+    }
+
 }
