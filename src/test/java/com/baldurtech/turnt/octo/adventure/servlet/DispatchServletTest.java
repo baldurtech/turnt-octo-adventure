@@ -42,4 +42,12 @@ public class DispatchServletTest extends MiniatureSpiceTestCase {
         assertEquals("/contact/list.do", dispatchServlet.getUri(request));
     }
 
+    public void test_getUri_部署到根目录下返回的uri() {
+        HttpServletRequest request = mock(HttpServletRequest.class);
+
+        when(request.getRequestURI()).thenReturn("/contact/contact/list.do");
+        when(request.getContextPath()).thenReturn("");
+
+        assertEquals("/contact/contact/list.do", dispatchServlet.getUri(request));
+    }
 }
