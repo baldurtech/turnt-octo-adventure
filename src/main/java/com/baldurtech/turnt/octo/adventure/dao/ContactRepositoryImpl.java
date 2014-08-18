@@ -35,4 +35,8 @@ public class ContactRepositoryImpl implements ContactRepository {
                          , contact.getVpmn()
                          , contact.getId());
     }
+
+    public void save(Contact contact) {
+
+    }
 }

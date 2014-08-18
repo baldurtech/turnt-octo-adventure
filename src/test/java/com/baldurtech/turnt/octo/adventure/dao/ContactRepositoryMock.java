@@ -10,6 +10,8 @@ public class ContactRepositoryMock implements ContactRepository {
     public Long deleteByIdActualParamId;
 
     public Contact updateParamContact;
+    public Object[] saveParams;
+    public Boolean saveHasInvoked = false;
 
     public Contact getById(Long id) {
         getByIdActualParamId = id;
@@ -22,5 +24,9 @@ public class ContactRepositoryMock implements ContactRepository {
 
     public void update(Contact contact) {
         updateParamContact = contact;
+    }
+
+    public void save(Contact contact) {
+        saveHasInvoked = true;
     }
 }

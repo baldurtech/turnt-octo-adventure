@@ -9,4 +9,7 @@ public interface ContactRepository {
     public void deleteById(Long id);
 
     public void update(Contact contact);
+
+    public void save(Contact contact);
+
 }

@@ -17,23 +17,39 @@ public class ContactManagerImplTest extends MiniatureSpiceTestCase {
     }
 
     public void test_getById_当id对应的Contact存在就直接返回() {
-        Contact contact = new Contact();
-        contact.setId(1L);
+        Long idContactExist = 1L;
 
-        contactRepository.getByIdShouldReturn = contact;
+        whenContactWithIdExist(idContactExist);
 
-        assertEquals(1L, contactManager.getById(1L).getId());
-
-        assertEquals(1L, contactRepository.getByIdActualParamId);
+        assertEquals(idContactExist, contactManager.getById(idContactExist).getId());
+        assertEquals(idContactExist, contactRepository.getByIdActualParamId);
     }
 
     public void test_getById_当id对应的Contact不存在就返回null() {
         Long idContactNotExist = 1L;
 
-        contactRepository.getByIdShouldReturn = null;
+        whenContactWithIdNotExist(idContactNotExist);
 
         assertNull(contactManager.getById(idContactNotExist));
-
         assertEquals(idContactNotExist, contactRepository.getByIdActualParamId);
+    }
+
+    public void test_save_当Contact不合法时不应该被保存() {
+        Contact invalidContact = new Contact();
+
+        contactManager.save(invalidContact);
+
+        assertFalse(contactRepository.saveHasInvoked);
+    }
+
+    private void whenContactWithIdExist(Long idContactExist) {
+        Contact contact = new Contact();
+        contact.setId(idContactExist);
+
+        contactRepository.getByIdShouldReturn = contact;
+    }
+
+    private void whenContactWithIdNotExist(Long idContactNotExist) {
+        contactRepository.getByIdShouldReturn = null;
     }
 }
