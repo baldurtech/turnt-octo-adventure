@@ -60,7 +60,7 @@ public class DispatchServlet extends HttpServlet {
     public String defaultSuffix = ".do";
 
     public String getUri(HttpServletRequest request) {
-        return request.getRequestURI().replace(request.getContextPath(), "");
+        return request.getRequestURI().replaceFirst(request.getContextPath(), "");
     }
 
     public Class getActionByUri(String uri) throws ClassNotFoundException {
