@@ -50,4 +50,8 @@ public abstract class Action {
         return contextPath + "/" + actionUri + ".do";
     }
 
+    public void flashMessage(String msg) {
+        ((ActionContextImpl)actionContext).flashMessage(msg);
+    }
+
 }
