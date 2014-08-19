@@ -2,6 +2,11 @@ package com.baldurtech.turnt.octo.adventure.action;
 
 import java.util.Map;
 import java.util.HashMap;
+import java.io.IOException;
+import javax.servlet.ServletException;
+import javax.servlet.ServletContext;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import com.baldurtech.turnt.octo.adventure.domain.Contact;
 import com.baldurtech.turnt.octo.adventure.manager.ContactManager;
@@ -18,6 +23,16 @@ public class ContactAction extends Action {
 
     public ContactAction(ActionContext actionContext, ContactManager contactManager) {
         super(actionContext);
+        this.contactManager = contactManager;
+    }
+
+    public ContactAction(ServletContext servletContext, HttpServletRequest request, HttpServletResponse response) {
+        this(servletContext, request, response, new ContactManagerImpl());
+    }
+
+    public ContactAction(ServletContext servletContext, HttpServletRequest request, HttpServletResponse response
+                         , ContactManager contactManager) {
+        super(servletContext, request, response);
         this.contactManager = contactManager;
     }
 

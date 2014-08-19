@@ -9,10 +9,26 @@ import javax.servlet.http.HttpServletResponse;
 
 public abstract class Action {
 
+    final ServletContext servletContext;
+    final HttpServletRequest request;
+    final HttpServletResponse response;
+
     final ActionContext actionContext;
 
     public Action(ActionContext actionContext) {
+        this.servletContext = null;
+        this.request = null;
+        this.response = null;
+
         this.actionContext = actionContext;
+    }
+
+    public Action(ServletContext servletContext, HttpServletRequest request, HttpServletResponse response) {
+        this.servletContext = servletContext;
+        this.request = request;
+        this.response = response;
+
+        this.actionContext = new ActionContextImpl(servletContext, request, response);
     }
 
     public void setAttribute(String key, Object value) {
@@ -25,4 +41,9 @@ public abstract class Action {
         } catch(IOException e) {
         }
     }
+
+    public String toRealUri(String actionUri) {
+        return ((ActionContextImpl)actionContext).toRealUri(actionUri);
+    }
+
 }
