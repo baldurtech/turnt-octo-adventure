@@ -1,6 +1,9 @@
 package com.baldurtech.turnt.octo.adventure.action;
 
-import junit.framework.*;
+import static org.junit.Assert.*;
+import org.junit.Before;
+import org.junit.Test;
+
 import static org.mockito.Mockito.*;
 
 import java.util.Map;
@@ -12,7 +15,7 @@ import javax.servlet.RequestDispatcher;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-public class ActionTest extends TestCase {
+public class ActionTest {
 
     ServletContext servletContext;
     HttpServletRequest request;
@@ -20,6 +23,7 @@ public class ActionTest extends TestCase {
 
     Action action;
 
+    @Before
     public void setUp() {
         servletContext = mock(ServletContext.class);
         request = mock(HttpServletRequest.class);
@@ -30,21 +34,25 @@ public class ActionTest extends TestCase {
         action = new ContactAction(servletContext, request, response);
     }
 
-    public void test_toRealUri_不带参数的actionUri() {
+    @Test
+    public void toRealUri_不带参数的actionUri() {
         assertEquals("/calabash/contact/list.do", action.toRealUri("contact/list"));
     }
 
-    public void test_toRealUri_contact_show带参数的actionUri() {
+    @Test
+    public void toRealUri_contact_show带参数的actionUri() {
         assertEquals("/calabash/contact/show.do?id=1", action.toRealUri("contact/show?id=1"));
     }
 
-    public void test_flashMessage_应该会把消息放入flash_message中() {
+    @Test
+    public void flashMessage_应该会把消息放入flash_message中() {
         action.flashMessage("test message");
 
         verify(request).setAttribute("flash.message", "test message");
     }
 
-    public void test_forwardAction_空数据仅仅转到对应的do上() throws Exception {
+    @Test
+    public void forwardAction_空数据仅仅转到对应的do上() throws Exception {
         RequestDispatcher requestDispatcher = mock(RequestDispatcher.class);
         when(servletContext.getRequestDispatcher(anyString())).thenReturn(requestDispatcher);
 
@@ -55,7 +63,8 @@ public class ActionTest extends TestCase {
         verify(requestDispatcher).forward(request, response);
     }
 
-    public void test_forwardAction_转到对应的do上并且把数据放入request() throws Exception {
+    @Test
+    public void forwardAction_转到对应的do上并且把数据放入request() throws Exception {
         RequestDispatcher requestDispatcher = mock(RequestDispatcher.class);
         when(servletContext.getRequestDispatcher(anyString())).thenReturn(requestDispatcher);
 
