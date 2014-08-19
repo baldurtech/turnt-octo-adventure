@@ -51,7 +51,7 @@ public abstract class Action {
     }
 
     public void flashMessage(String msg) {
-        ((ActionContextImpl)actionContext).flashMessage(msg);
+        request.setAttribute("flash.message", msg);
     }
 
 }
