@@ -34,4 +34,10 @@ public class ActionTest extends TestCase {
     public void test_toRealUri_contact_show带参数的actionUri() {
         assertEquals("/calabash/contact/show.do?id=1", action.toRealUri("contact/show?id=1"));
     }
+
+    public void test_flashMessage_应该会把消息放入flash_message中() {
+        action.flashMessage("test message");
+
+        verify(request).setAttribute("flash.message", "test message");
+    }
 }
