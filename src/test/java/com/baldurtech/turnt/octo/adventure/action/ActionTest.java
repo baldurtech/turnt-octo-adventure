@@ -1,6 +1,6 @@
 package com.baldurtech.turnt.octo.adventure.action;
 
-import com.baldurtech.unit.MiniatureSpiceTestCase;
+import junit.framework.*;
 import static org.mockito.Mockito.*;
 
 import java.io.IOException;
@@ -9,7 +9,7 @@ import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-public class ActionTest extends MiniatureSpiceTestCase {
+public class ActionTest extends TestCase {
 
     ServletContext servletContext;
     HttpServletRequest request;
@@ -17,7 +17,7 @@ public class ActionTest extends MiniatureSpiceTestCase {
 
     Action action;
 
-    public void setup() {
+    public void setUp() {
         servletContext = mock(ServletContext.class);
         request = mock(HttpServletRequest.class);
         response = mock(HttpServletResponse.class);

@@ -19,6 +19,9 @@ CLASSPATH_TEST=$CLASSPATH_RUNTIME
 done
 
 java -classpath $CLASSPATH_TEST com.baldurtech.unit.MiniatureSpiceTestCase "$@"
+echo ""
+echo "Run Junit..."
+java -classpath $CLASSPATH_TEST org.junit.runner.JUnitCore com.baldurtech.turnt.octo.adventure.action.ActionTest
 RETVAL=$?
 
 echo "Test done."
