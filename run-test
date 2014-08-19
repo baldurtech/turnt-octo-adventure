@@ -20,7 +20,7 @@ done
 
 java -classpath $CLASSPATH_TEST com.baldurtech.unit.MiniatureSpiceTestCase "$@"
 echo ""
-echo "Run Junit..."
+echo "Run JUnit..."
 java -classpath $CLASSPATH_TEST org.junit.runner.JUnitCore com.baldurtech.turnt.octo.adventure.action.ActionTest
 RETVAL=$?
 

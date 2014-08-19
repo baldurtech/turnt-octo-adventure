@@ -43,7 +43,11 @@ public abstract class Action {
     }
 
     public String toRealUri(String actionUri) {
-        return ((ActionContextImpl)actionContext).toRealUri(actionUri);
+        String contextPath = request.getContextPath();
+        if(actionUri.indexOf("?") > 0) {
+            return contextPath + "/" + actionUri.replace("?", ".do?");
+        }
+        return contextPath + "/" + actionUri + ".do";
     }
 
 }
