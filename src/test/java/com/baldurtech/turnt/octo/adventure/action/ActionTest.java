@@ -3,9 +3,11 @@ package com.baldurtech.turnt.octo.adventure.action;
 import junit.framework.*;
 import static org.mockito.Mockito.*;
 
+import java.util.HashMap;
 import java.io.IOException;
 import javax.servlet.ServletException;
 import javax.servlet.ServletContext;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -39,5 +41,16 @@ public class ActionTest extends TestCase {
         action.flashMessage("test message");
 
         verify(request).setAttribute("flash.message", "test message");
+    }
+
+    public void test_forwardAction_空数据仅仅转到对应的do上() throws Exception {
+        RequestDispatcher requestDispatcher = mock(RequestDispatcher.class);
+        when(servletContext.getRequestDispatcher(anyString())).thenReturn(requestDispatcher);
+
+        action.forwardAction("contact/list", new HashMap<String, Object>());
+
+        verify(request, never()).setAttribute(anyString(), anyObject());
+        verify(servletContext).getRequestDispatcher("/contact/list.do");
+        verify(requestDispatcher).forward(request, response);
     }
 }

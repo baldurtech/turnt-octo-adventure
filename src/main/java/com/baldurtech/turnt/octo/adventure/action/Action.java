@@ -3,6 +3,8 @@ package com.baldurtech.turnt.octo.adventure.action;
 import java.io.PrintWriter;
 import java.io.IOException;
 
+import java.util.Map;
+
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -48,6 +50,10 @@ public abstract class Action {
             return contextPath + "/" + actionUri.replace("?", ".do?");
         }
         return contextPath + "/" + actionUri + ".do";
+    }
+
+    public void forwardAction(String uri, Map<String, Object> data) {
+        ((ActionContextImpl)actionContext).forwardAction(uri, data);
     }
 
     public void flashMessage(String msg) {
